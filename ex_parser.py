@@ -4,7 +4,7 @@ from openpyxl import load_workbook
 from models import Company, Foo, Bar, db
 
 
-FILE_PATH = 'companies_data.xlsx'
+FILE_PATH = "companies_data.xlsx"
 
 
 def create_db():
@@ -14,7 +14,7 @@ def create_db():
         # Create the tables.
         db.create_tables([Company, Foo, Bar])
     except Exception as exp:
-        print('ERROR: creating db, cause: {0}'.format(exp))
+        print("ERROR: creating db, cause: {0}".format(exp))
         exit()
 
 
@@ -22,31 +22,31 @@ def load_data():
     try:
         wb = load_workbook(FILE_PATH)
     except Exception as exp:
-        print('ERROR: opening file, cause: {0}'.format(exp))
+        print("ERROR: opening file, cause: {0}".format(exp))
         exit()
 
     ws = wb.active
 
-    cell_range = ws['A3':'F22']
+    cell_range = ws["A3":"F22"]
 
     for row in cell_range:
         for cell in row:
-            if cell.column_letter == 'A':
+            if cell.column_letter == "A":
                 day_num = cell.value
-            elif cell.column_letter == 'B':
+            elif cell.column_letter == "B":
                 company, _ = Company.get_or_create(name=cell.value)
-            elif cell.column_letter == 'C':
+            elif cell.column_letter == "C":
                 data1 = cell.value
-            elif cell.column_letter == 'D':
+            elif cell.column_letter == "D":
                 Foo.create(
                     company_id=company.id,
                     data1=data1,
                     data2=cell.value,
                     date=date(1960, 1, day_num),
                 )
-            elif cell.column_letter == 'E':
+            elif cell.column_letter == "E":
                 data1 = cell.value
-            elif cell.column_letter == 'F':
+            elif cell.column_letter == "F":
                 Bar.create(
                     company_id=company.id,
                     data1=data1,
@@ -60,5 +60,5 @@ def main():
     load_data()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

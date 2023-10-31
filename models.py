@@ -1,8 +1,14 @@
 from peewee import (
-    SqliteDatabase, Model, CharField, DateField, IntegerField, ForeignKeyField)
+    SqliteDatabase,
+    Model,
+    CharField,
+    DateField,
+    IntegerField,
+    ForeignKeyField,
+)
 
 
-db = SqliteDatabase('companies.db')
+db = SqliteDatabase("companies.db")
 
 
 class Company(Model):
